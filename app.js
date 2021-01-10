@@ -7,7 +7,7 @@ app.use(express.static("public"))
 
 // define the first route
 app.get("/", function (req, res) {
-  res.send("<h1>Hello World!</h1>")
+    res.sendFile('index.html');
 })
 
 // start the server listening for requests
