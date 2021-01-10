@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danni's Music Studio</title>
+    <link rel="icon" 
+      type="image/png" 
+      href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id='student-body' class="grey lighten-3">
+  
+    <nav>
+        <div class=" grey darken-3 nav-wrapper">
+          <a href="index.html" class="brand-logo center">Danni's Music Studio</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="left hide-on-med-and-down">
+            <li style="display: none;" id="allowCreateNote" class="admin"><a href="">Create New Note</a></li>
+            <li style="display: none;" class="logged-in"><a id="logout" href="#">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+      <ul class="sidenav" id="mobile-demo">
+        <li style="display: none;" id="allowCreateNote-mobile" class="admin"><a href="">Create New Note</a></li>
+        <li style="display: none;" class="logged-in"><a id="logout-mobile" href="#">Logout</a></li> 
+      </ul>
+
+      <div id="modal-deleteStudent" class="modal">
+        <div class="modal-content">
+            <h4>Delete Student</h4>
+            <h5>Are you sure you want to delete this student?</h5>
+            <form id="deleteStudent-form">
+                <button class="btn red">DELETE</button>
+                <div id="deleteStudent-error"></div>
+            </form>
+        </div>
+      </div>
+
+      <div id="modal-deleteNote" class="modal">
+        <div class="modal-content">
+            <h4>Delete Note</h4>
+            <h5>Are you sure you want to delete this note?</h5>
+            <form id="deleteNote-form">
+                <button class="btn red">DELETE</button>
+                <div id="deleteNote-error"></div>
+            </form>
+        </div>
+      </div>
+
+      <div style="display: none;" id="studentInfo" class="container">
+        
+      </div>
+
+      <div style="display: none;" id="searchDiv" class="container">
+        <form id="searchNotes-form">
+          <input type="text" id ="searchNotes" placeholder="Search notes here" />
+          <button id="search-button" class="btn blue">Search</button>
+        </form>
+
+      </div>
+
+      <div class="container">
+          <ul id="ul-notes" class="notes">
+                <li>Loading</li>
+          </ul>
+      </div>
+
+      <div style="display: none;" id="loadDiv" class="container">
+        <button id="loadMore" class="btn">Load More</button>
+      </div>
+      
+
+      </div>
+      <div style="display: none;" id="editNoteDiv">
+        <form id="editNote-form">
+          <textarea id="noteTitleEdit" placeholder="TITLE HERE"></textarea>
+          <textarea id="sample"></textarea>
+          <button class="btn blue">Submit</button>
+        </form>
+
+      </div>
+
+      </div>
+
+      <div class="container">
+        <ul style="display: none;" id="delete-student" class="delete-student">
+              <li><a href="#" class="modal-trigger" data-target="modal-deleteStudent">Delete Student?</a></li>
+        </ul>
+    </div>
+    
+   
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-functions.js"></script>
+    <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyCxRyhHncEruiELQ4JekBwZMObu7_vlxJI",
+        authDomain: "danni-music-studio.firebaseapp.com",
+        databaseURL: "https://danni-music-studio.firebaseio.com",
+        projectId: "danni-music-studio",
+        storageBucket: "danni-music-studio.appspot.com",
+        messagingSenderId: "101569687227",
+        appId: "1:101569687227:web:902f669374b50143c1039e",
+        measurementId: "G-TBQQW2C74D"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    
+    //make auth and firestore refs
+    const auth = firebase.auth();
+    const db = firebase.database();
+    const functions = firebase.functions();
+
+
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor-contents.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+    <!-- languages (Basic Language: English/en) -->
+
+
+    <script>
+      const editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'),{
+          // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
+          // Insert options
+          // Language global object (default: en)
+          buttonList: [
+        ['undo', 'redo',
+        'fontSize',
+       
+        'bold', 'underline', 'italic', 'subscript', 'superscript',
+        'fontColor', 'hiliteColor',
+        'removeFormat',
+        
+        'list',
+        'link', 'image', /** 'math', */ // You must add the 'katex' library at options to use the 'math' plugin.
+        /** 'imageGallery', */ // You must add the "imageGalleryUrl".
+        'fullScreen']
+    ]
+      });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="scripts/student.js"></script>
+</body>
+</html>

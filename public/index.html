@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danni's Music Studio</title>
+    <link rel="icon" 
+      type="image/png" 
+      href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="grey lighten-3">
+  
+    <nav>
+        <div class=" grey darken-3 nav-wrapper">
+          <a style="display: none;"  href="index.html" class="brand-logo center logged-in">Danni's Music Studio</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="left hide-on-med-and-down">
+            <li style="display: none;" class="logged-out"><a class="modal-trigger" data-target="modal-signup">Sign Up</a></li>
+            <li style="display: none;" class="logged-out"><a class="modal-trigger" data-target="modal-login">Login</a></li>
+            <li style="display: none;" class="logged-in"><a id="logout" href="#">Logout</a></li>
+            <li style="display: none;" class="admin"><a class="modal-trigger" data-target="modal-editFront">Edit Front Page</a></li>
+          </ul>
+        </div>
+      </nav>
+      <ul class="sidenav" id="mobile-demo">
+        <li style="display: none;" class="logged-out"><a class="modal-trigger" data-target="modal-signup">Sign Up</a></li>
+        <li style="display: none;" class="logged-out"><a class="modal-trigger" data-target="modal-login">Login</a></li>
+        <li style="display: none;" class="logged-in"><a id="logout-mobile" href="#">Logout</a></li>
+        <li style="display: none;" class="admin"><a class="modal-trigger" data-target="modal-editFront">Edit Front Page</a></li>
+      </ul>
+
+      <!-- <form class="center-align admin-actions">
+        <input type="email" id="admin-email" />
+        <button class="btn-small yellow">Make admin</button>
+      </form> -->
+
+      <div id="modal-signup" class="modal">
+        <div class="modal-content">
+            <h4>Sign Up</h4>
+            <form id="signup-form">
+                <div class="input-field">
+                    <input type="email" id="signup-email" required autocomplete="true"/>
+                    <label for="signup-email">Email Address</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="signup-password" required  autocomplete="true"/>
+                    <label for="signup-password">Password</label>
+                </div>
+                <div class="input-field">
+                  <input type="text" id="signup-passkey" required  autocomplete="true"/>
+                  <label for="signup-passkey">Sign Up Key</label>
+              </div>
+                <button class="btn blue">Sign Up</button>
+                <div id="signup-error"></div>
+            </form>
+        </div>
+      </div>
+
+
+
+      <div id="modal-login" class="modal">
+        <div class="modal-content">
+            <h4>Login</h4>
+            <form id="login-form">
+                <div class="input-field">
+                    <input type="email" id="login-email" required autocomplete="true"/>
+                    <label for="login-email">Email Address</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="login-password" required autocomplete="true"/>
+                    <label for="login-password">Password</label>
+                </div>
+                <button class="btn blue">Login</button>
+                <div id="login-error"></div>
+            </form>
+        </div>
+      </div>
+
+      <div id="modal-createStudent" class="modal">
+        <div class="modal-content">
+            <h4>Create Student</h4>
+            <form id="createStudent-form">
+                <div class="input-field">
+                    <input type="text" id="createStudent-firstName" required autocomplete="true"/>
+                    <label for="createStudent-firstName">First Name</label>
+                </div>
+                <div class="input-field">
+                  <input type="text" id="createStudent-lastName" required autocomplete="true"/>
+                  <label for="createStudent-lastName">Last Name</label>
+              </div>
+                <div class="input-field">
+                    <input type="date" id="createStudent-bdate" required autocomplete="true"/>
+                    <label for="createStudent-bdate">Birthdate</label>
+                </div>
+                <button class="btn blue">Create</button>
+                <div id="createStudent-error"></div>
+            </form>
+        </div>
+      </div>
+      <div id="frontBanner">
+        <h3>Welcome to Danni's Music Studio!</h3>
+      </div>
+      <div id="frontPage">
+        
+        <ul style="display: none;" id="ul">   
+            <li>Loading</li>
+
+        </ul>
+        <ul style="display: none;" id="ulFront">
+          <li>Loading</li>
+        </ul>
+      </div>
+
+
+
+    
+
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-functions.js"></script>
+    <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyCxRyhHncEruiELQ4JekBwZMObu7_vlxJI",
+        authDomain: "danni-music-studio.firebaseapp.com",
+        databaseURL: "https://danni-music-studio.firebaseio.com",
+        projectId: "danni-music-studio",
+        storageBucket: "danni-music-studio.appspot.com",
+        messagingSenderId: "101569687227",
+        appId: "1:101569687227:web:902f669374b50143c1039e",
+        measurementId: "G-TBQQW2C74D"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    
+    //make auth and firestore refs
+    const auth = firebase.auth();
+    const db = firebase.database();
+    const functions = firebase.functions();
+
+    //This is to re-add all users for optimizing
+    // console.log("Starting");
+    // db.ref(`users`).once('value', (e) => {
+    //     e.forEach(element => {
+    //         console.log(element.ref_.path.pieces_[1]);
+    //         const uid = element.ref_.path.pieces_[1];
+    //         try{
+    //         console.log(element.val().info.email);
+    //         const email = element.val().info.email;
+    //         db.ref(`users/6Tvtz5BN65hHTd8kST4sFwVPGkm1/content`).push({
+    //             email: email,
+    //             uid: uid
+    //         }).then(() => {
+    //             console.log("added");
+    //         });
+    //         }catch(er){
+    //             console.log("NO EMAIL");
+    //         }
+            
+            
+    //     });
+    // }).then(() => {
+    //     console.log("done");
+    // });
+
+
+
+    </script>
+          <div id="modal-editFront" class="modal">
+            <div class="modal-content">
+                <h4>Edit front page</h4>
+                <form id="preEditFront-form">
+                    <label>
+                        <input id="secOne" name="group1" type="radio" value="secOne" checked />
+                        <span>Sec One</span>
+                    </label>
+                    <br>
+                    <label>
+                        <input id="secTwo" name="group1" type="radio" value="secTwo" />
+                        <span>Sec Two</span>
+                    </label><br>
+                    <label>
+                      <input id="secThree" name="group1" type="radio" value="secThree"  />
+                      <span>Sec Three</span>
+                  </label>
+                  <br>
+                  <label>
+                    <input id="secFour" name="group1" type="radio" value="secFour" />
+                    <span>Sec Four</span>
+                </label>
+                <br>
+                <label>
+                  <input id="secFive" name="group1" type="radio" value="secFive"  />
+                  <span>Sec Five</span>
+              </label>
+              <br>
+                    <button class="btn yellow">Change Section</button>
+
+                </form>
+                <form id="editFront-form">
+                                <!-- Create the editor container -->
+
+                    <textarea id="sample"></textarea>
+                    
+                
+                    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor-contents.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+    <!-- languages (Basic Language: English/en) -->
+
+
+    <script>
+      const editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'),{
+          // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
+          // Insert options
+          // Language global object (default: en)
+          buttonList: [
+        ['undo', 'redo',
+        'fontSize',
+       
+        'bold', 'underline', 'italic', 'subscript', 'superscript',
+        'fontColor', 'hiliteColor',
+        'removeFormat',
+        
+        'list',
+        'link', 'image', /** 'math', */ // You must add the 'katex' library at options to use the 'math' plugin.
+        /** 'imageGallery', */ // You must add the "imageGalleryUrl".
+        'fullScreen']
+    ]
+      });
+    </script>
+
+                    <button class="btn yellow">Submit changes</button>
+                    <div id="editFront-error"></div>
+                </form>
+            </div>
+          </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src='scripts/auth.js'></script>
+    <script src='scripts/index.js'></script>
+ 
+
+</body>
+</html>

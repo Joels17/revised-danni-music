@@ -1,0 +1,120 @@
+strong{
+    font-weight:bold;
+}
+
+#frontBanner{
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 50px;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg,#020024,#090979 35%,#00d4ff);
+}
+
+.nav-wrapper {
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg,#020024,#090979 35%,#00d4ff);
+}
+
+#frontPage #ulFront{
+    margin: 0;
+    padding: 0;
+
+}
+
+#frontPage #logInfo {
+    text-align: center;
+    font-size: 24px;
+}
+
+#frontPage #ulFront #secOne {
+    padding: 2% 10% 2% 10%;
+}
+
+#frontPage #ulFront #secTwo {
+    padding: 2% 10% 2% 10%;
+    background-color: #add8e6;
+
+}
+#frontPage #ulFront #secTwo div{
+    float: left;
+    margin-left: -8%;
+    margin-right: 3%;
+}
+
+#frontPage #ulFront #secThree{
+    padding: 2% 10% 2% 10%;
+
+}
+
+
+#frontPage #ulFront #secFour{
+    padding: 2% 10% 2% 10%;
+    background: #414143;
+    color: white;
+}
+
+#frontPage #ulFront #secFive {
+    padding: 2% 10% 2% 10%;
+    background-color: navy;
+    color: white;
+}
+
+#ul {
+    text-align: center;
+
+}
+
+#ul li {
+    margin: 1%;
+    font-size: 16px;
+}
+
+.studentSelect{
+    font-size: 18px;
+    text-align: center;
+}
+
+#delete-student{
+    text-align: right;
+    background-color: rgb(238, 238, 138);
+    border-radius: 5px;
+    padding-right: 5px;
+}
+
+#ul-notes h4{
+    background-color: lightgray;
+    border-radius: 2px;
+}
+
+#studentName {
+    float: left;
+}
+
+#studentBox {
+    text-align: center;
+    float: right;
+    margin-top: -10rem;
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: #cd5c5c;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#loadMore {
+    background-color: #cd5c5c;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .nav-wrapper .brand-logo {
+        font-size: large;
+    }
+    #studentBox {
+        margin: 0;
+    }
+  }
