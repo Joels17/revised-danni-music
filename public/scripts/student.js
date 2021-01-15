@@ -270,6 +270,7 @@ const setupStudent = (user) => {
         const studentsList = document.getElementById('ul-notes');
         let html = "";
         db.ref(`users/6Tvtz5BN65hHTd8kST4sFwVPGkm1/content`).orderByChild('uid').once('value', snap => {
+            
             snap.forEach(el => {
                 if(el.val().uid == uid){
                     
@@ -279,20 +280,26 @@ const setupStudent = (user) => {
                     for (var key in (stus)) {
                         db.ref(`users/6Tvtz5BN65hHTd8kST4sFwVPGkm1/content/${src}/students/${key}`).orderByChild('uid').once('value', snap2 => {
                             li = `<li class="studentSelect"><a href="student.html?userId=${uid}&studentId=${snap2.val().studentId}">${snap2.val().firstName}</a></li>`;
+                            
                         }).then(() => {
                             html+=li;
                             
-                            if(html == ""){
-                                html = "No students to show";
+                            if(html!=""){
+                                studentsList.innerHTML = html;
                             }
-                            studentsList.innerHTML = html;
                         })
+                                                    
+
                         
                     }
 
+                    if(html==""){
+                        studentsList.innerHTML = "No students";
+                    }
                     //const li = `<li><a href="student.html?userId=${uid}&studentId=${el.ref.path.pieces_[3]}">${fname}</a></li>`;
                 }
             });
+            
 
             // snap.forEach(element => {
 
