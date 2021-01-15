@@ -55,7 +55,7 @@ const setupStudents = (user) => {
                     })
                     
                 }
-                if(html == ""){
+                if(html == `<p id="logInfo">Click on a student to view their notes</p>`){
                     studentsList.innerHTML = `${html}<li><a href="#" class="modal-trigger" data-target="modal-createStudent">Add Student</a></li>`;
                 }
                 

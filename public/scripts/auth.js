@@ -26,7 +26,7 @@ auth.onAuthStateChanged((user) => {
                 loadFront(false);
                 setupUI(user);
                 document.getElementById('ul').innerHTML='Loading';
-                const userId = auth.currentUser.uid;
+                
                 setupStudents(user);
             }
         })
