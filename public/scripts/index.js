@@ -125,7 +125,7 @@ const loadFront = (data) => {
 		document.getElementById('ulFront').style.display = 'block';
 		const sections = ['secOne', 'secTwo', 'secThree', 'secFour', 'secFive'];
 		const frontContent = document.getElementById('ulFront');
-		frontContent.innerHTML = 'Loading';
+		frontContent.innerHTML = '<p style=\"margin: 2rem;\">Loading...</p>';
 		let html = '';
 		let li = '';
 		const prom = new Promise((resolve, reject) => {

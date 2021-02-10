@@ -28,11 +28,12 @@ auth.onAuthStateChanged((user) => {
 			}
 		});
 	} else {
-		loadFront(true);
+		
 		setupUI();
 		document.getElementById('ul').style.display = 'none';
 		document.getElementById('ulFront').style.display = 'block';
 		setupStudents(false);
+		loadFront(true);
 	}
 });
 
